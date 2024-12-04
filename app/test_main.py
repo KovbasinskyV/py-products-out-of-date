@@ -1,6 +1,6 @@
 import pytest
 import datetime
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from app.main import outdated_products
 
@@ -33,7 +33,11 @@ products = [
     ]
 )
 @patch("app.main.datetime")
-def test_outdated_product(mocked_date, today_date, result) -> None:
+def test_outdated_product(
+        mocked_date: Mock,
+        today_date: datetime.date,
+        result: list[str]
+) -> None:
     mocked_date.date.today.return_value = today_date
 
     func_result = outdated_products(products)
